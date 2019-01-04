@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import '@/components/global'
+import '@/config/UI/element_ui'
+import '@/sass/index.scss'
 
 Vue.config.productionTip = false
 

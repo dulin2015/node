@@ -20,8 +20,9 @@ const defaultLog = log => console.log(chalk.green(`${log}`))
 let moduleName = new String();
 let fileType = new String();
 // const string
-const vueFile = module => (`<template>
-
+const vueFile = module => (`
+<template>
+	<div class="content" :class="content-${module}"></div>
 </template>
 <script>
 	export default {
@@ -39,20 +40,15 @@ const vueFile = module => (`<template>
 </script>
 <style lang="scss">
 
-</style>`)
+</style>
+`)
 
 // route file
 const routerFile = module => (`
 	export default [{
 		path: '/${module}',
 		name: '${module}',
-		component: () => import('@/pages/user/login),
-		children: [{
-			path: '',
-			fullPath: '',
-			name: '',
-			component: () => import('@/pages/${module}/index')
-		}]
+		component: () => import('')
 	}]
 `)
 

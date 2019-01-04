@@ -1,14 +1,18 @@
-// import login from '@/pages/user/login'
-import NotFount from '@/404'
-
 export default [{
   path: '/',
   redirect: '/login'
+}, {
+  path: '/login',
+  name: 'login',
+  meta: {
+    title: '登录'
+  },
+  component: resolve => require(['@/pages/common/login'], resolve)
 }, {
   path: '*',
   meta: {
     title: '404'
   },
   name: 'NotFount',
-  component: NotFount
+  component: resolve => require.ensure([], resolve(require(['@/pages/common/404'])))
 }]

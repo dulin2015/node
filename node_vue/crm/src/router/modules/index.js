@@ -7,7 +7,7 @@ const files = require.context('./', true, /\.js$/); //动态获取当前目录�
 let configRouters = [];
 
 files.keys().forEach(key => {
-  console.log(files(key))
+  // console.log(files(key))
   if (key === './index.js') return;
   configRouters = [...configRouters, ...files(key).default]; // 读取文件中default模块的内容
 });
