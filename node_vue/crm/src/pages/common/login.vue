@@ -20,6 +20,8 @@
 
 <script>
 const md5 = require('md5');
+import { login } from '@/api/modules/user';
+
 export default {
     data() {
         return {
@@ -50,12 +52,22 @@ export default {
                         password: md5(this.form.password, null, true)
                     }
 
-                    console.log(data)
-                    console.log(md5("698d51a19d8a121ce581499d7b701668", null, true))
+                    this.login(data);
+
                 } else {
                     return false;
                 }
             })
+        },
+        async login(form) {
+            let res = await login(form);
+            this.$message({
+                message: res.message,
+                type: res.status == 0 ? 'success' : 'error'
+            })
+            if (res.status == 0) {
+
+            }
         }
     }
 }

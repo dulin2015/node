@@ -1,0 +1,3 @@
+import fetch from '@/api/config';
+
+export const login = data => fetch('/auth/login', data)
