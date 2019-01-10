@@ -4,9 +4,9 @@ const config = {
     database: { // 数据库配置
         DATABASE: 'vue_sql', // 数据库
         USERNAME: 'root', // 用户名
-        PASSWORD: 'root', // 密码
+        PASSWORD: '123456', // 密码
         PORT: '3306', // 端口号
-        HOST: '127.0.0.1' // 主机名
+        HOST: 'localhost' // 主机名
     }
 
 }

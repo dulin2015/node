@@ -17,8 +17,16 @@ server.use(body({
     uploadDir: './upload'
 }));
 
+
 server.use(session({
-    
+    "key": "user",
+    "maxAge": 60000,
+    "autoCommit": true,
+    "overwrite": true,
+    "httpOnly": true,
+    "signed": true,
+    "rolling": true,
+    "renew": true
 }, server))
 
 let router = new Router();
