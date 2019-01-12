@@ -7,6 +7,19 @@
 import { blocked, deepInherit } from '@/utils';
 import { baseUrl } from '@/config';
 
+const requestDataHandled = data => {
+    let requestData = [];
+    Object.keys(data).forEach(key => {
+        if (data[key] instanceof Array) {
+            requestData.push(`${key}=${JSON.stringify(data[key])}`);
+        } else {
+            requestData.push(`${key}=${data[key]}`);
+        }
+    })
+
+    return requestData.join('&');
+}
+
 export default async function (url = '', data = {}, type = 'post') {
     type = type.toUpperCase();
     // 请求地址
@@ -16,22 +29,8 @@ export default async function (url = '', data = {}, type = 'post') {
     let dataHandleAfter = {};
     deepInherit(dataHandleBefore, dataHandleAfter);
 
-    const requestDataHandled = data => {
-        let requestData = [];
-        Object.keys(data).forEach(key => {
-            if (data[key] instanceof Array) {
-                requestData.push(`${key}=${JSON.stringify(data[key])}`);
-            } else {
-                requestData.push(`${key}=${data[key]}`);
-            }
-        })
-
-        return requestData.join('&');
-    }
-
     if (window.fetch) {
         try {
-            
             let configRequest = {
                 // body: requestDataHandled(dataHandleAfter), // data can be `string` or {object}, must match 'Content-Type' header
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
