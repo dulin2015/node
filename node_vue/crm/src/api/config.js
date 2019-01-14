@@ -30,25 +30,25 @@ export default async function (url = '', data = {}, type = 'post') {
     deepInherit(dataHandleBefore, dataHandleAfter);
 
     if (window.fetch) {
-        try {
-            let configRequest = {
-                // body: requestDataHandled(dataHandleAfter), // data can be `string` or {object}, must match 'Content-Type' header
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'include', // include（跨域）, same-origin（同源）, *omit（不在请求中包含凭据） 发送带凭据的请求
-                headers: {
-                    'Accept': 'application/json',
-                    "Content-type": "application/x-www-form-urlencoded"
-                },
-                method: type, // *GET, POST, PUT, DELETE, etc
-                mode: 'cors' // no-cors, cors, *follow, error
-            }
+        let configRequest = {
+            // body: requestDataHandled(dataHandleAfter), // data can be `string` or {object}, must match 'Content-Type' header
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include（跨域）, same-origin（同源）, *omit（不在请求中包含凭据） 发送带凭据的请求
+            headers: {
+                'Accept': 'application/json',
+                "Content-type": "application/x-www-form-urlencoded"
+            },
+            method: type, // *GET, POST, PUT, DELETE, etc
+            mode: 'cors' // no-cors, cors, *follow, error
+        }
 
-            if (type === 'POST') {
-                Object.defineProperty(configRequest, 'body', {
-                    value: requestDataHandled(dataHandleAfter)
-                })
-            }
-            
+        if (type === 'POST') {
+            Object.defineProperty(configRequest, 'body', {
+                value: requestDataHandled(dataHandleAfter)
+            })
+        }
+
+        try {
             let response = await fetch(url, configRequest)
             let responseData = await response.json(); // parses response to JSON
 
