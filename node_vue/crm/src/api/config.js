@@ -29,7 +29,7 @@ export default async function (url = '', data = {}, type = 'post') {
     let dataHandleAfter = {};
     deepInherit(dataHandleBefore, dataHandleAfter);
 
-    if (window.fetch) {
+    if (!window.fetch) {
         let configRequest = {
             // body: requestDataHandled(dataHandleAfter), // data can be `string` or {object}, must match 'Content-Type' header
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -50,9 +50,16 @@ export default async function (url = '', data = {}, type = 'post') {
 
         try {
             let response = await fetch(url, configRequest)
-            let responseData = await response.json(); // parses response to JSON
 
-            return responseData;        
+            if (type === 'POST') {
+                let responseData = await response.json(); // parses response to JSON
+
+                return responseData;  
+            } else if (type === 'GET') {
+                let responseUrl = await response.url;
+                return responseUrl;
+            }
+                  
         } catch (error) {
             throw new Error(error);
         }
@@ -75,12 +82,14 @@ export default async function (url = '', data = {}, type = 'post') {
             xmlhttp.onreadystatechange = () => {
                 if (xmlhttp.readyState == 4) {
                     if (xmlhttp.status == 200) {
-                        let response = xmlhttp.response;
-                        if (typeof response !== 'object') {
-                            response = JSON.parse(response);
+                        let response = type === 'GET' ? xmlhttp.responseURL : xmlhttp.response;
+                        
+                        if (type === 'POST') {
+                            if (typeof response !== 'object') {
+                                response = JSON.parse(response);
+                            }
                         }
-
-                        resolve(response);
+                        resolve(response)
                     } else {
                         reject(xmlhttp);
                     }

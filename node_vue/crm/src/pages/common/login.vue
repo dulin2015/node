@@ -14,13 +14,19 @@
             <el-row>
                 <el-button type="primary" @click="signIn('form')">登录</el-button>
             </el-row>
+            <br />
+            <el-row>
+                <el-button type="primary" :plain="true" @click="download">下载</el-button>
+            </el-row>
         </el-form>
     </div>
 </template>
 
 <script>
 const md5 = require('md5');
-import { login } from '@/api/modules/user';
+import { login,
+         download } from '@/api/modules/user';
+import { blocked } from '@/utils';
 
 export default {
     data() {
@@ -68,6 +74,12 @@ export default {
             if (res.status == 0) {
 
             }
+        },
+        async download() {
+            let res = await download();
+            
+            blocked(`${res}`);
+            
         }
     }
 }
