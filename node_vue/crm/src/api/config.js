@@ -12,7 +12,7 @@ const requestDataHandled = data => {
   Object
     .keys(data)
     .forEach(key => {
-      if (data[key]instanceof Array) {
+      if (typeof data[key] == 'object') {
         requestData.push(`${key}=${JSON.stringify(data[key])}`);
       } else {
         requestData.push(`${key}=${data[key]}`);
@@ -52,13 +52,12 @@ export default async function (url = '', data = {}, type = 'post') {
     try {
       let response = await fetch(url, configRequest)
 
-      if (type === 'POST') {
-        let responseData = await response.json(); // parses response to JSON
-
-        return responseData;
-      } else if (type === 'GET') {
+      if (type === 'GET') {
         let responseUrl = await response.url;
         return responseUrl;
+      } else {
+        let responseData = await response.json(); // parses response to JSON
+        return responseData;
       }
 
     } catch (error) {
@@ -87,10 +86,8 @@ export default async function (url = '', data = {}, type = 'post') {
               ? xmlhttp.responseURL
               : xmlhttp.response;
 
-            if (type === 'POST') {
-              if (typeof response !== 'object') {
-                response = JSON.parse(response);
-              }
+            if (type !== 'GET' && typeof response !== 'object') {
+              response = JSON.parse(response);
             }
             resolve(response)
           } else {
