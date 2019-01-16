@@ -31,7 +31,7 @@ export default async function (url = '', data = {}, type = 'post') {
   let dataHandleAfter = {};
   deepInherit(dataHandleBefore, dataHandleAfter);
 
-  if (!window.fetch) {
+  if (window.fetch) {
     let configRequest = {
       // body: requestDataHandled(dataHandleAfter), // data can be `string` or
       // {object}, must match 'Content-Type' header

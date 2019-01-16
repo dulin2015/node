@@ -51,34 +51,34 @@ export default {
     },
     methods: {
         signIn(formName) {
-            this.$refs[formName].validate(valid => {
-                if (valid) {
-                    let data = {
-                        username: this.form.username,
-                        password: md5(this.form.password, null, true)
-                    }
+            // this.$refs[formName].validate(valid => {
+            //     if (valid) {
+            //         let data = {
+            //             username: this.form.username,
+            //             password: md5(this.form.password, null, true)
+            //         }
 
-                    this.login(data);
+            //         this.login(data);
 
-                } else {
-                    return false;
-                }
-            })
+            //     } else {
+            //         return false;
+            //     }
+            // })
         },
         async login(form) {
-            let res = await login(form);
-            this.$message({
-                message: res.message,
-                type: res.status == 0 ? 'success' : 'error'
-            })
-            if (res.status == 0) {
+            // let res = await login(form);
+            // this.$message({
+            //     message: res.message,
+            //     type: res.status == 0 ? 'success' : 'error'
+            // })
+            // if (res.status == 0) {
 
-            }
+            // }
         },
         async download() {
-            let res = await download();
+            // let res = await download();
             
-            blocked(`${res}`);
+            // blocked(`${res}`);
             
         }
     }

@@ -43,12 +43,14 @@ exports.login = async(ctx, next) => {
 /**
  * 下载
  */
-exports.download = async(ctx, next) => {
+exports.download = async (ctx, next) => {
   try {
-    ctx.set('content-type', 'text/json; charset=utf-8');
-    const path = 'upload/a.txt';
-    ctx.attachment(path);
-    ctx.body = await send(ctx, path);
+    ctx.set('content-type', 'text/html; charset=utf-8');
+    let filename = 'a.txt';
+    ctx.attachment(filename);
+    await send(ctx, filename, {
+      root: __dirname + './../upload'
+    });
   } catch (error) {
     throw new Error(error);
   }
