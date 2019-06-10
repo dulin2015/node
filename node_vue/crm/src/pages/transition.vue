@@ -103,6 +103,80 @@
         </li>
       </ul> 
     </div>
+    <h4>问题4</h4>
+    <div class="sec-location">
+      <dl>
+          <dt>省</dt>
+          <dd>
+            <div class="location-province">
+              <a href="javascript:;" 
+                class="location-item selected">
+                <input type="checkbox" value="1" />
+                <label>广东省</label>
+              </a>
+              <a href="javascript:;" 
+                class="location-item">
+                <input type="checkbox" value="1" />
+                <label>广西省</label>
+              </a>
+              <a href="javascript:;" 
+                class="location-item">
+                <input type="checkbox" value="1" />
+                <label>云南省</label>
+              </a>
+              <a href="javascript:;" 
+                class="location-item">
+                <input type="checkbox" value="1" />
+                <label>福建省</label>
+              </a>
+            </div>
+          </dd>
+      </dl>
+      <div class="location-city">
+        <a href="javascript:;"
+          class="location-item">
+          <input type="checkbox" value="1-1"   />
+          <label>广州市</label>
+        </a>
+        <a href="javascript:;"
+          class="location-item selected">
+          <input type="checkbox" value="1-2"   />
+          <label>深圳市</label>
+        </a>
+        <a href="javascript:;"
+          class="location-item">
+          <input type="checkbox" value="1-3"   />
+          <label>珠海市</label>
+        </a>
+        <a href="javascript:;"
+          class="location-item">
+          <input type="checkbox" value="1-4"   />
+          <label>中山市</label>
+        </a>
+      </div>
+      <div class="location-area">
+        <a href="javascript:;"
+          class="location-item">
+          <input type="checkbox" value="1-2-1"   />
+          <label>福田区</label>
+        </a>
+        <a href="javascript:;"
+          class="location-item">
+          <input type="checkbox" value="1-2-2"   />
+          <label>罗湖区</label>
+        </a>
+        <a href="javascript:;"
+          class="location-item">
+          <input type="checkbox" value="1-2-3"   />
+          <label>南山区</label>
+        </a>
+        <a href="javascript:;"
+          class="location-item">
+          <input type="checkbox" value="1-2-4"   />
+          <label>宝安区</label>
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -201,7 +275,58 @@ export default {
         name: '选择5',
         value: 5
       }],
-      moveSelectedIds: []
+      moveSelectedIds: [],
+      provinceData: [{
+        id: 1,
+        name: '广东省'
+      }, {
+        id: 2,
+        name: '广西省'
+      }, {
+        id: 3,
+        name: '云南省'
+      }, {
+        id: 4,
+        name: '福建省'
+      }],
+      cityData: [{
+        id: '1-1',
+        name: '广州市'
+      }, {
+        id: '1-2',
+        name: '深圳市'
+      }, {
+        id: '1-3',
+        name: '珠海市'
+      }, {
+        id: '1-4',
+        name: '中山市'
+      }],
+      areaData: [{
+        id: '1-2-1',
+        name: '福田区'
+      }, {
+        id: '1-2-2',
+        name: '罗湖区'
+      }, {
+        id: '1-2-3',
+        name: '南山区'
+      }, {
+        id: '1-2-4',
+        name: '宝安区'
+      }, {
+        id: '1-2-5',
+        name: '龙岗区'
+      }, {
+        id: '1-2-6',
+        name: '龙华区'
+      }, {
+        id: '1-2-7',
+        name: '坪山区'
+      }],
+      provinceIndex: null,
+      cityIndex: null,
+      areaIndex: null
       
     };
   },
@@ -357,6 +482,12 @@ export default {
 
       // 1 0 "{"name":"选择2","value":2}"  { "name": "选择2", "value": 2 }
       // 2 1 "{"name":"选择2","value":2}"  { "name": "选择3", "value": 3 }
+    },
+    clickProvince(index) {
+      this.provinceIndex = index;
+    },
+    clickCity(index) {
+      this.cityIndex = index;
     }
   }
 };
@@ -428,4 +559,91 @@ a {
     right: 10px;
   }
 }
+
+* {
+  box-sizing: content-box;
+}
+
+.sec-location {
+  border: 1px solid #CDCDCD;
+  margin: 10px;
+  padding: 10px;
+  font-size: 0;
+  position: relative;
+  height: 500px;
+
+  dl {
+    padding-left: 100px;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  dt {
+    width: 100px;
+    float: left;
+    margin-left: -100px;
+    text-align: center;
+  }
+
+  dd {
+    margin: 0;
+
+  }
+  
+  .location-item {
+    display: block;
+    float: left;
+    line-height: 30px;
+    background: #FFF;
+    border: 1px solid #FFF;
+
+  }
+
+  input {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -1px;
+  }
+
+  label {
+    display: inline-block;
+    margin-left: 5px;
+    position: relative;
+  }
+
+  .location-province {
+    .selected {
+      border-color: aquamarine;
+      border-bottom-color: #FFF;
+      position: relative;
+      // z-index: 10;
+    }
+  }
+
+  .location-city {
+    position: absolute;
+    top: 47px;
+    // z-index: 9;
+    width: 800px;
+    background: #FFF;
+    border: 1px solid aquamarine;
+    .selected {
+      border-color: red;
+      border-bottom-color: #FFF;
+      position: relative;
+      // z-index: 11;
+    }
+  }
+
+  .location-area {
+    position: absolute;
+    // z-index: 10;
+    top: 85px;
+    background: #FFF;
+    border: 1px solid red;
+  }
+}
+
+
 </style>
